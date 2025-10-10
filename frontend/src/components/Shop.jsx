@@ -4,7 +4,8 @@ import { useProductStore } from "../stores/useProductStore";
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
 import toast from "react-hot-toast";
-import { Menu, X, RefreshCw } from "lucide-react";
+import { Menu, X} from "lucide-react";
+//import { RefreshCw } from "lucide-react";
 import ProductCard from "./ProductCard";
 
 const Shop = () => {

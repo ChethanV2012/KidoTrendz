@@ -35,13 +35,27 @@ const Footer = () => {
     }
   };
 
+  const categories = ["pants", "t-shirts", "shorts","jackets", "ethnic_wear", "kurtis", "indo_western", "lehenga_choli","sets&suits", "footwear","accesories","bags"];
+
+  const formatCategory = (slug) => {
+    return slug
+      .replace(/_/g, ' ')
+      .replace(/&/g, ' & ')
+      .split(' ')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(' ');
+  };
+
+  const firstHalf = categories.slice(0, 6);
+  const secondHalf = categories.slice(6);
+
   return (
     <footer className="bg-white border-t border-gray-100">
-      <div className="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+      <div className="max-w-7xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-8 md:mb-12">
           {/* Brand Section */}
-          <div className="lg:col-span-1">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">KidoTrendz</h3>
+          <div className="lg:col-span-1 order-1">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4">KidoTrendz</h3>
             <p className="text-gray-600 text-sm leading-relaxed mb-4">
               Discover premium quality products with exceptional service. Your
               trusted shopping destination for modern lifestyle essentials.
@@ -67,22 +81,22 @@ const Footer = () => {
                 href="https://instagram.com"
                 className="text-gray-400 hover:text-gray-900 transition-colors duration-200"
               >
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.366.062 2.307.317 2.793.584.486.267.861.617 1.223 1.174.362.557.631 1.074.794 2.093.163 1.019.066 1.646.066 4.85s.012 3.831.066 4.85c.062 1.366.317 2.307.584 2.793.267.486.617.861 1.174 1.223.557.362 1.074.631 2.093.794 1.019.163 1.646.066 4.85.066s3.831-.012 4.85-.066c1.366-.062 2.307-.317 2.793-.584.486-.267.861-.617 1.223-1.174.362-.557.631-1.074.794-2.093.163-1.019.066-1.646.066-4.85s-.012-3.831-.066-4.85c-.062-1.366-.317-2.307-.584-2.793-.267-.486-.617-.861-1.174-1.223-.557-.362-1.074-.631-2.093-.794-1.019-.163-1.646-.066-4.85-.066s-3.831.012-4.85.066c-1.366.062-2.307.317-2.793.584-.486.267-.861.617-1.223 1.174-.362.557-.631 1.074-.794 2.093-.163 1.019-.066 1.646-.066 4.85s.012 3.831.066 4.85c.062 1.366.317 2.307.584 2.793.267.486.617.861 1.174 1.223.557.362 1.074.631 2.093.794 1.019.163 1.646.066 4.85.066s3.831-.012 4.85-.066c1.366-.062 2.307-.317 2.793-.584.486-.267.861-.617 1.223-1.174.362-.557.631-1.074.794-2.093.163-1.019.066-1.646.066-4.85s-.012-3.831-.066-4.85c-.062-1.366-.317-2.307-.584-2.793-.267-.486-.617-.861-1.174-1.223-.557-.362-1.074-.631-2.093-.794-1.019-.163-1.646-.066-4.85-.066-3.204 0-3.584-.012-4.85-.07-1.366-.062-2.307-.317-2.793-.584-.486-.267-.861-.617-1.223-1.174-.362-.557-.631-1.074-.794-2.093-.163-1.019-.066-1.646-.066-4.85 0-3.204.012-3.584.07-4.85"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-instagram" viewBox="0 0 16 16">
+                  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
                 </svg>
               </a>
             </div>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold text-gray-900 mb-4">Quick Links</h4>
+          <div className="order-3 md:order-2">
+            <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Quick Links</h4>
             <ul className="space-y-2">
-              {['About Us', 'Shop', 'Contact'].map((link) => (
+              {['About', 'Shop', 'Contact'].map((link) => (
                 <li key={link}>
                   <a
                     href={`/${link.toLowerCase().replace(' ', '')}`}
-                    className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200"
+                    className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 block py-1"
                   >
                     {link}
                   </a>
@@ -92,25 +106,39 @@ const Footer = () => {
           </div>
 
           {/* Categories */}
-          <div>
-            <h4 className="text-lg font-semibold text-gray-900 mb-4">Categories</h4>
-            <ul className="space-y-2">
-              {['Pants', 'T-shirts', 'Shorts', 'Kurtis', 'Jacket','Ethnic Wear','sets','Indo Western','Lehenga choli','Footwear','Accessories','Bags'].map((category) => (
-                <li key={category}>
-                  <a
-                    href={`/shop?category=${category}`}
-                    className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200"
-                  >
-                    {category}
-                  </a>
-                </li>
-              ))}
-            </ul>
+          <div className="order-2 md:order-3 lg:order-3">
+            <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Categories</h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <ul className="space-y-2">
+                {firstHalf.map((slug) => (
+                  <li key={slug}>
+                    <a
+                      href={`/shop?category=${slug}`}
+                      className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 block py-1"
+                    >
+                      {formatCategory(slug)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+              <ul className="space-y-2">
+                {secondHalf.map((slug) => (
+                  <li key={slug}>
+                    <a
+                      href={`/shop?category=${slug}`}
+                      className="text-gray-600 hover:text-gray-900 text-sm transition-colors duration-200 block py-1"
+                    >
+                      {formatCategory(slug)}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
 
           {/* Newsletter */}
-          <div>
-            <h4 className="text-lg font-semibold text-gray-900 mb-4">Stay Updated</h4>
+          <div className="order-4 md:order-4 lg:order-4 md:col-span-2 lg:col-span-1">
+            <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-4">Stay Updated</h4>
             <p className="text-gray-600 text-sm leading-relaxed mb-4">
               Subscribe to get updates on new products and exclusive offers.
             </p>
@@ -131,7 +159,7 @@ const Footer = () => {
                   value={emailInfo}
                   onChange={(e) => setEmailInfo(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-4 py-2 border border-black-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm transition-all duration-200"
+                  className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent text-sm transition-all duration-200"
                 />
                 {errMsg && (
                   <p className="text-red-500 text-xs mt-1 animate-pulse">{errMsg}</p>
@@ -148,10 +176,10 @@ const Footer = () => {
         </div>
 
         {/* Footer Bottom */}
-        <div className="border-t border-gray-100 pt-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            <p className="text-gray-500 text-sm">© 2025 KidoTrendz. All rights reserved.</p>
-            <div className="flex items-center gap-4">
+        <div className="border-t border-gray-100 pt-4 sm:pt-6">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6">
+            <p className="text-gray-500 text-sm text-center sm:text-left">© 2025 KidoTrendz. All rights reserved.</p>
+            <div className="flex items-center gap-4 order-3 sm:order-2">
               <span className="text-gray-500 text-sm">We accept:</span>
               <img
                 src={paymentCard}
@@ -159,7 +187,7 @@ const Footer = () => {
                 className="h-8 object-contain opacity-60"
               />
             </div>
-            <div className="flex gap-4">
+            <div className="flex gap-4 order-2 sm:order-3 justify-center sm:justify-end">
               {['Privacy Policy', 'Terms of Service'].map((link) => (
                 <a
                   key={link}

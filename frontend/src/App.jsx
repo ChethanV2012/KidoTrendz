@@ -7,6 +7,7 @@ import AdminPage from "./pages/AdminPage";
 import CategoryPage from "./pages/CategoryPage";
 import ProductPage from "./pages/ProductPage"; 
 import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -49,6 +50,7 @@ function App() {
 				<Routes>
 					<Route path='/' element={<HomePage />} />
 					<Route path='/about' element={<AboutPage />} />
+					<Route path='/contact' element={<ContactPage />} />
 					<Route path='/shop' element={<Shop />} />
 					<Route path='/signup' element={!user ? <SignUpPage /> : <Navigate to='/' />} />
 					<Route path='/login' element={!user ? <LoginPage /> : <Navigate to='/' />} />
