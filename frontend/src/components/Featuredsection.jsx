@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { HiOutlineCurrencyDollar } from 'react-icons/hi2';
 import { BiSupport } from 'react-icons/bi';
 import { MdOutlinePayment } from 'react-icons/md';
 import { MdClose } from 'react-icons/md';
 // eslint-disable-next-line no-unused-vars
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Container from './Container';
 
 const FeaturedSection = () => {
@@ -54,7 +54,7 @@ const FeaturedSection = () => {
           'Enjoy free standard shipping on all orders over Rs. 500. We partner with reliable courier services to ensure your products reach you safely and on time.',
         features: [
           'Free shipping on orders Rs. 500+',
-          'Standard delivery: 3-5 business days',
+          'Standard delivery: 2-3 Hrs',
           'Express delivery available',
           'Real-time tracking',
           'Secure packaging',
@@ -63,13 +63,13 @@ const FeaturedSection = () => {
     },
     {
       title: 'Easy Returns',
-      subtitle: '30-day return guarantee',
+      subtitle: '7-days return guarantee',
       icon: <HiOutlineCurrencyDollar />,
       details: {
         description:
-          'Not satisfied with your purchase? No problem! Our hassle-free return policy allows you to return any item within 30 days of purchase.',
+          'Not satisfied with your purchase? No problem! Our hassle-free return policy allows you to return any item within 7 days of purchase.',
         features: [
-          '30-day return window',
+          '7-days return window',
           'Full refund guarantee',
           'Free return shipping',
           'Easy online return process',

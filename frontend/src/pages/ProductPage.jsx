@@ -11,7 +11,6 @@ const generateSizes = (category) => {
     '0-3 months', '3-6 months', '6-9 months', '9-12 months', '1-3 years', '3-5 years',
     '5-7 years', '7-9 years', '9-12 years'
   ];
-  // For pants, shorts, indo_western, kurtis, lehengha_choli, ethnic_wear, accessories, sets&suits, full range; for others, adjust if needed (e.g., first 4 for t-shirts)
   return ['pants', 'shorts', 'indo_western', 'kurtis', 'lehengha_choli', 'ethnic_wear', 'accessories', 'sets&suits'].includes(category) ? baseSizes : baseSizes; // Full range for all here
 };
 
@@ -148,8 +147,8 @@ const ProductPage = () => {
         // Ensure data has required fields; fallback if missing
         setProduct({
           ...data,
-          category: data.category || 't-shirt', // e.g., 'pants', 'shorts', 'indo_western', 'kurtis', 'lehengha_choli', 'ethnic_wear', 'accessories', 'sets&suits', 't-shirt'
-          gender: data.gender || 'unisex', // 'boys', 'girls', 'unisex'
+          category: data.category || 't-shirt', 
+          gender: data.gender || 'unisex', 
           sizes: data.sizes || generateSizes(data.category), // Dynamic sizes
           sizeChart: data.sizeChart || generateSizeChart(data.category, data.gender), // Dynamic chart
           description: data.description || 'Adorable kids\' wear. Made from soft 100% cotton.',

@@ -1,3 +1,4 @@
+// models/product.model.js
 import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
@@ -5,6 +6,7 @@ const productSchema = new mongoose.Schema(
 		name: {
 			type: String,
 			required: true,
+			unique: true,  // Prevent duplicate product names
 		},
 		description: {
 			type: String,

@@ -5,8 +5,10 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import CategoryPage from "./pages/CategoryPage";
-import ProductPage from "./pages/ProductPage"; // Updated: Use ProductPage for the route
+import ProductPage from "./pages/ProductPage"; 
+import AboutPage from "./pages/AboutPage";
 
+import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
 import { Toaster } from "react-hot-toast";
 import { useUserStore } from "./stores/useUserStore";
@@ -16,6 +18,7 @@ import CartPage from "./pages/CartPage";
 import { useCartStore } from "./stores/useCartStore";
 import PurchaseSuccessPage from "./pages/PurchaseSuccessPage";
 import PurchaseCancelPage from "./pages/PurchaseCancelPage";
+import Shop from "./components/Shop";
 
 function App() {
 	const { user, checkAuth, checkingAuth } = useUserStore();
@@ -45,6 +48,8 @@ function App() {
 				<Navbar />
 				<Routes>
 					<Route path='/' element={<HomePage />} />
+					<Route path='/about' element={<AboutPage />} />
+					<Route path='/shop' element={<Shop />} />
 					<Route path='/signup' element={!user ? <SignUpPage /> : <Navigate to='/' />} />
 					<Route path='/login' element={!user ? <LoginPage /> : <Navigate to='/' />} />
 					<Route
@@ -62,6 +67,7 @@ function App() {
 					<Route path="/product/:id" element={<ProductPage />} />
 					<Route path="/products/:id" element={<ProductPage />} />
 				</Routes>
+				<Footer />
 			</div>
 			<Toaster />
 		</div>

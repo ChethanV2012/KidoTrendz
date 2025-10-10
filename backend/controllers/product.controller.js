@@ -1,3 +1,4 @@
+// controllers/product.controller.js
 import { redis } from "../lib/redis.js";
 import cloudinary from "../lib/cloudinary.js";
 import Product from "../models/product.model.js";
@@ -43,6 +44,9 @@ export const createProduct = async (req, res) => {
 	try {
 		const { name, description, price, image, category, gender } = req.body;
 
+		// Standardize category: lowercase, replace spaces/hyphens with underscores
+		const standardizedCategory = category.toLowerCase().replace(/[- ]/g, '_');
+
 		let cloudinaryResponse = null;
 
 		if (image) {
@@ -54,13 +58,17 @@ export const createProduct = async (req, res) => {
 			description,
 			price,
 			image: cloudinaryResponse?.secure_url ? cloudinaryResponse.secure_url : "",
-			category,
+			category: standardizedCategory, // Use standardized category
 			gender,
 		});
 
 		res.status(201).json(product);
 	} catch (error) {
 		console.log("Error in createProduct controller", error.message);
+		// Handle duplicate name error specifically
+		if (error.code === 11000) {
+			return res.status(409).json({ message: "Product name already exists. Please use a unique name." });
+		}
 		res.status(500).json({ message: "Server error", error: error.message });
 	}
 };
@@ -119,7 +127,10 @@ export const getRecommendedProducts = async (req, res) => {
 export const getProductsByCategory = async (req, res) => {
 	const { category } = req.params;
 	try {
-		const products = await Product.find({ category });
+		// Case-insensitive exact match for category
+		const products = await Product.find({ 
+			category: { $regex: `^${category}$`, $options: 'i' } 
+		});
 		res.json({ products });
 	} catch (error) {
 		console.log("Error in getProductsByCategory controller", error.message);
@@ -130,7 +141,10 @@ export const getProductsByCategory = async (req, res) => {
 export const getProductsByGender = async (req, res) => {
 	const { gender } = req.params;
 	try {
-		const products = await Product.find({ gender });
+		// Case-insensitive exact match for gender
+		const products = await Product.find({ 
+			gender: { $regex: `^${gender}$`, $options: 'i' } 
+		});
 		res.json({ products });
 	} catch (error) {
 		console.log("Error in getProductsByGender controller", error.message);
