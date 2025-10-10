@@ -37,6 +37,7 @@ import jackets from "./jackets.png";
 import ethnic_wear from "./ethnic_wear.png";
 import sets from "./sets.png";  
 import bags from "./bags.png";
+import kidoTrendzLogo from "./kidoTrendzLogo.png";
 
 export {
   /*logo,
@@ -72,5 +73,6 @@ export {
   jackets,
   ethnic_wear,
   sets,
-  bags
+  bags,
+  kidoTrendzLogo
 };

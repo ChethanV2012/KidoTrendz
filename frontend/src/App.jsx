@@ -5,9 +5,10 @@ import SignUpPage from "./pages/SignUpPage";
 import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import CategoryPage from "./pages/CategoryPage";
-import ProductPage from "./pages/ProductPage"; 
+import ProductPage from "./pages/ProductPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
+import Profile from "./pages/Profile";
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -51,6 +52,8 @@ function App() {
 					<Route path='/' element={<HomePage />} />
 					<Route path='/about' element={<AboutPage />} />
 					<Route path='/contact' element={<ContactPage />} />
+					<Route path='/profile' element={<Profile />} />
+
 					<Route path='/shop' element={<Shop />} />
 					<Route path='/signup' element={!user ? <SignUpPage /> : <Navigate to='/' />} />
 					<Route path='/login' element={!user ? <LoginPage /> : <Navigate to='/' />} />

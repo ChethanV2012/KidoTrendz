@@ -211,7 +211,6 @@ const Shop = () => {
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-emerald-400 mb-2">
             Shop
           </h1>
-          <p className="text-gray-400 text-sm sm:text-base">Home / Shop</p>
         </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">

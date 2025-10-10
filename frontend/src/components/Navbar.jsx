@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { ShoppingCart, UserPlus, LogOut, Lock, Search, Menu, X } from "lucide-react";
+import { ShoppingCart, User, LogOut, Lock, Search, Menu, X, ChevronDown } from "lucide-react";
 import { Link, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
+import logo from '../assets/kidoTrendzLogo.png'; // Adjust path as needed
 
 const Navbar = () => {
 	const { user, logout } = useUserStore();
@@ -12,6 +13,7 @@ const Navbar = () => {
 	const navigate = useNavigate();
 	const [searchParams, setSearchParams] = useSearchParams();
 	const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+	const [isProfileDropdownOpen, setIsProfileDropdownOpen] = useState(false);
 
 	const query = searchParams.get('q') || '';
 	const menuLinks = [
@@ -24,13 +26,17 @@ const Navbar = () => {
 	const handleLogout = () => {
 		logout();
 		navigate('/');
+		setIsProfileDropdownOpen(false);
+	};
+
+	const toggleProfileDropdown = () => {
+		setIsProfileDropdownOpen(!isProfileDropdownOpen);
 	};
 
 	const handleSearchChange = (e) => {
 		const newQuery = e.target.value;
 		if (newQuery) {
 			setSearchParams({ q: newQuery });
-			// Optionally navigate to /shop or /search for results
 			if (location.pathname !== '/shop') {
 				navigate(`/shop?q=${newQuery}`);
 			}
@@ -46,8 +52,8 @@ const Navbar = () => {
 		<header className='fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 backdrop-blur-md shadow-lg z-40 transition-all duration-300 border-b border-emerald-800'>
 			<div className='container mx-auto px-4 sm:px-6 py-3 sm:py-4'>
 				<div className='flex justify-between items-center relative'>
-					<Link to='/' className='text-xl sm:text-2xl font-bold text-emerald-400 tracking-wide select-none'>
-						E-Commerce
+					<Link to='/' className='flex-shrink-0'>
+						<img src={logo} alt="E-Commerce Logo" className="h-8 sm:h-10 w-auto" />
 					</Link>
 
 					{/* Mobile menu button - only for non-admin */}
@@ -74,7 +80,7 @@ const Navbar = () => {
 									placeholder="Search products..."
 									value={query}
 									onChange={handleSearchChange}
-									className="pl-10 py-2.5 w-full rounded-full border border-gray-600 bg-gray-800 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+									className="pl-10 py-2.5 w-full rounded-full border border-gray-600 bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 transition-all duration-300 shadow-sm hover:shadow-md"
 								/>
 							</div>
 
@@ -132,22 +138,48 @@ const Navbar = () => {
 							</Link>
 						)}
 
-						{/* Auth / Logout */}
+						{/* Auth / Profile Dropdown */}
 						{user ? (
-							<button
-								className='flex items-center gap-1 sm:gap-2 text-gray-300 hover:text-emerald-400 md:bg-gray-700 md:hover:bg-gray-600 md:text-white py-2 px-3 sm:px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105 md:transform-none'
-								onClick={handleLogout}
-							>
-								<LogOut size={18} />
-								<span className='hidden md:inline'>Log Out</span>
-							</button>
+							<div className="relative">
+								<button
+									className='flex items-center gap-1 sm:gap-2 text-gray-300 hover:text-emerald-400 md:bg-gray-700 md:hover:bg-gray-600 md:text-white py-2 px-3 sm:px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105 md:transform-none'
+									onClick={toggleProfileDropdown}
+								>
+									<User size={18} />
+									<ChevronDown size={16} className={`ml-1 transition-transform duration-300 ${isProfileDropdownOpen ? 'rotate-180' : ''}`} />
+								</button>
+								{isProfileDropdownOpen && (
+									<div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-700">
+										<Link
+											to="/my-orders"
+											className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
+											onClick={() => setIsProfileDropdownOpen(false)}
+										>
+											Manage My Orders
+										</Link>
+										<Link
+											to="/profile"
+											className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
+											onClick={() => setIsProfileDropdownOpen(false)}
+										>
+											My Profile
+										</Link>
+										<button
+											onClick={handleLogout}
+											className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
+										>
+											Log Out
+										</button>
+									</div>
+								)}
+							</div>
 						) : (
 							<Link
-								to="/signup"
+								to="/login"
 								className='flex items-center gap-1 sm:gap-2 text-gray-300 hover:text-emerald-400 md:bg-emerald-600 md:hover:bg-emerald-700 md:text-white py-2 px-3 sm:px-4 rounded-md transition duration-300 ease-in-out transform hover:scale-105 md:transform-none'
 							>
-								<UserPlus size={18} />
-								<span className='hidden md:inline'>Create Account</span>
+								<User size={18} />
+								<span className='hidden md:inline'>Sign In</span>
 							</Link>
 						)}
 					</div>
@@ -181,20 +213,51 @@ const Navbar = () => {
 								placeholder="Search products..."
 								value={query}
 								onChange={handleSearchChange}
-								className="pl-12 py-2.5 w-full rounded-full border border-gray-600 bg-gray-800 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+								className="pl-12 py-2.5 w-full rounded-full border border-gray-600 bg-gray-800 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-emerald-400 focus:border-emerald-400 transition-all duration-300 shadow-sm hover:shadow-md"
 							/>
 						</div>
 
-						{/* Mobile Admin Dashboard */}
-						{isAdmin && (
-							<Link
-								to="/secret-dashboard"
-								className="flex items-center gap-2 bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-medium transition duration-300 ease-in-out text-sm"
-								onClick={() => setIsMobileMenuOpen(false)}
-							>
-								<Lock size={18} />
-								Dashboard
-							</Link>
+						{/* Mobile Profile Dropdown Trigger */}
+						{user && (
+							<div className="relative w-full max-w-sm mx-auto px-4">
+								<button
+									className="flex items-center gap-2 w-full justify-center text-gray-300 hover:text-emerald-400 py-2 transition duration-300"
+									onClick={toggleProfileDropdown}
+								>
+									<User size={18} />
+									<ChevronDown size={16} className={`transition-transform duration-300 ${isProfileDropdownOpen ? 'rotate-180' : ''}`} />
+								</button>
+								{isProfileDropdownOpen && (
+									<div className="absolute top-full right-4 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-700">
+										<Link
+											to="/my-orders"
+											className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
+											onClick={() => {
+												setIsProfileDropdownOpen(false);
+												setIsMobileMenuOpen(false);
+											}}
+										>
+											Manage My Orders
+										</Link>
+										<Link
+											to="/profile"
+											className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
+											onClick={() => {
+												setIsProfileDropdownOpen(false);
+												setIsMobileMenuOpen(false);
+											}}
+										>
+											My Profile
+										</Link>
+										<button
+											onClick={handleLogout}
+											className="block w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
+										>
+											Log Out
+										</button>
+									</div>
+								)}
+							</div>
 						)}
 					</nav>
 				</div>
