@@ -1,9 +1,19 @@
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 const CategoryItem = ({ category }) => {
 	return (
-		<div className='relative overflow-hidden h-96 w-full rounded-lg group'>
-			<Link to={"/category" + category.href}>
+		<motion.div 
+			className='relative overflow-hidden h-96 w-full rounded-lg group'
+			initial={{ y: 50, opacity: 0 }}
+			animate={{ y: 0, opacity: 1 }}
+			transition={{ duration: 0.5, ease: "easeOut" }}
+			whileHover={{ y: -5 }}
+		>
+			<Link 
+				to={"/category" + category.href}
+				onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "instant" })}
+			>
 				<div className='w-full h-full cursor-pointer'>
 					<div className='absolute inset-0 bg-gradient-to-b from-transparent to-gray-900 opacity-50 z-10' />
 					<img
@@ -18,7 +28,7 @@ const CategoryItem = ({ category }) => {
 					</div>
 				</div>
 			</Link>
-		</div>
+		</motion.div>
 	);
 };
 

@@ -1,5 +1,6 @@
 import toast from "react-hot-toast";
 import { ShoppingCart } from "lucide-react";
+import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
@@ -24,7 +25,13 @@ const ProductCard = ({ product }) => {
 	};
 
 	return (
-		<div className='flex w-full relative flex-col overflow-hidden rounded-lg border border-gray-700 shadow-lg'>
+		<motion.div
+			className='flex w-full relative flex-col overflow-hidden rounded-lg border border-gray-700 shadow-lg'
+			initial={{ y: 50, opacity: 0 }}
+			animate={{ y: 0, opacity: 1 }}
+			transition={{ duration: 0.5, ease: "easeOut" }}
+			whileHover={{ y: -5 }}
+		>
 			<div 
 				className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl cursor-pointer'
 				onClick={handleImageClick}
@@ -49,7 +56,7 @@ const ProductCard = ({ product }) => {
 					Add to cart
 				</button>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 export default ProductCard;

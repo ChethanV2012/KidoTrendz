@@ -46,6 +46,20 @@ export const useCartStore = create((set, get) => ({
 	clearCart: async () => {
 		set({ cart: [], coupon: null, total: 0, subtotal: 0 });
 	},
+	checkout: async () => {
+		try {
+			const { cart, coupon } = get();
+			await axios.post("/checkout", { 
+				items: cart.map(item => ({ id: item._id, quantity: item.quantity })), 
+				coupon: coupon ? coupon.code : null 
+			});
+			get().clearCart();
+			toast.success("Purchase successful");
+		} catch (error) {
+			toast.error(error.response?.data?.message || "Purchase failed");
+			// Cart remains unchanged on failure
+		}
+	},
 	addToCart: async (product) => {
 		try {
 			await axios.post("/cart", { productId: product._id });
