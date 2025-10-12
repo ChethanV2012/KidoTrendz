@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import toast from 'react-hot-toast'; // Assuming you have this
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,11 @@ const ContactPage = () => {
     email: '',
     subject: '',
     message: ''
+  });
+  const [contactInfo] = useState({
+    phone: '+1 (234) 567-890',
+    email: 'hello@kidotrendz.com',
+    address: '123 Fashion Street, Mumbai, Maharashtra 400001, India'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');
@@ -21,12 +27,29 @@ const ContactPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('Message sent successfully!');
+    setSubmitStatus(''); // Clear previous
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.error || 'Submission failed');
+      }
+
+      toast.success('Message sent successfully! We\'ll get back to you soon.'); // Or setSubmitStatus
       setFormData({ name: '', email: '', subject: '', message: '' });
-    }, 1500);
+    } catch (error) {
+      console.error('Submission error:', error);
+      toast.error(`Oops! ${error.message}`); // Or setSubmitStatus for error
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const getInputClass = (value) => {
@@ -135,7 +158,11 @@ const ContactPage = () => {
                 <motion.p
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="mt-4 p-3 bg-green-50 border border-green-200 rounded-xl text-green-700 text-center font-medium"
+                  className={`mt-4 p-3 border rounded-xl text-center font-medium ${
+                    submitStatus.includes('success') 
+                      ? 'bg-green-50 border-green-200 text-green-700' 
+                      : 'bg-red-50 border-red-200 text-red-700'
+                  }`}
                 >
                   {submitStatus}
                 </motion.p>
@@ -162,7 +189,7 @@ const ContactPage = () => {
                   <div>
                     <h3 className="text-sm font-semibold text-gray-900">Phone</h3>
                     <p className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
-                      <a href="tel:+1234567890">+1 (234) 567-890</a>
+                      <a href={`tel:${contactInfo.phone.replace(/\s/g, '')}`}>{contactInfo.phone}</a>
                     </p>
                   </div>
                 </div>
@@ -175,7 +202,7 @@ const ContactPage = () => {
                   <div>
                     <h3 className="text-sm font-semibold text-gray-900">Email</h3>
                     <p className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
-                      <a href="mailto:hello@kidotrendz.com">hello@kidotrendz.com</a>
+                      <a href={`mailto:${contactInfo.email}`}>{contactInfo.email}</a>
                     </p>
                   </div>
                 </div>
@@ -188,20 +215,18 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="text-sm font-semibold text-gray-900">Address</h3>
-                    <p className="text-gray-600">123 Fashion Street, Mumbai, Maharashtra 400001, India</p>
+                    <p className="text-gray-600">{contactInfo.address}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Map */}
+            {/* Responsive Google Map */}
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
-              <div className="h-64 sm:h-80 lg:h-96 w-full relative">
+              <div className="relative w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px]">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.9999999999995!2d72.877655!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c94f9d3b4b3b%3A0x6e4a8f5f5f5f5f5f!2sMumbai%2C%20Maharashtra%2C%20India!5e0!3m2!1sen!2sus!4v1690000000000!5m2!1sen!2sus"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
+                  src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.9999999999995!2d72.877655!3d19.0760!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c94f9d3b4b3b%3A0x6e4a8f5f5f5f5f5f!2s${encodeURIComponent(contactInfo.address)}!5e0!3m2!1sen!2sus!4v1690000000000!5m2!1sen!2sus`}
+                  className="absolute inset-0 w-full h-full"
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"

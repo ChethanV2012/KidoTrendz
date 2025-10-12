@@ -12,16 +12,17 @@ export const useProductStore = create((set, get) => ({
 	setProducts: (products) => set({ products }),
 
 	// 🛒 PUBLIC: Fetch all products for shop page
-	fetchShopProducts: async () => {
+	fetchShopProducts: async (searchQuery = '') => {
 		set({ loading: true, error: null });
 		try {
-			const response = await axios.get("/products/shop");
+			const params = searchQuery ? { q: searchQuery } : {};
+			const response = await axios.get("/products/shop", { params });
 			set({ products: response.data.products || response.data, loading: false });
 		} catch (error) {
 			const errMsg = error.response?.data?.message || "Failed to fetch shop products";
-			set({ 
-				loading: false, 
-				error: errMsg 
+			set({
+				loading: false,
+				error: errMsg
 			});
 			toast.error(errMsg);
 		}
@@ -35,9 +36,9 @@ export const useProductStore = create((set, get) => ({
 			set({ products: response.data.products, loading: false });
 		} catch (error) {
 			const errMsg = error.response?.data?.error || "Failed to fetch products";
-			set({ 
-				error: errMsg, 
-				loading: false 
+			set({
+				error: errMsg,
+				loading: false
 			});
 			toast.error(errMsg);
 		}
@@ -97,9 +98,9 @@ export const useProductStore = create((set, get) => ({
 			set({ products: response.data.products, loading: false });
 		} catch (error) {
 			const errMsg = error.response?.data?.error || "Failed to fetch products";
-			set({ 
-				error: "Failed to fetch category products", 
-				loading: false 
+			set({
+				error: "Failed to fetch category products",
+				loading: false
 			});
 			toast.error(errMsg);
 		}
@@ -113,9 +114,9 @@ export const useProductStore = create((set, get) => ({
 			set({ products: response.data.products, loading: false });
 		} catch (error) {
 			const errMsg = error.response?.data?.error || "Failed to fetch products";
-			set({ 
-				error: "Failed to fetch gender products", 
-				loading: false 
+			set({
+				error: "Failed to fetch gender products",
+				loading: false
 			});
 			toast.error(errMsg);
 		}
@@ -129,9 +130,9 @@ export const useProductStore = create((set, get) => ({
 			set({ products: response.data.products || response.data, loading: false });
 		} catch (error) {
 			const errMsg = error.response?.data?.error || "Failed to fetch featured products";
-			set({ 
-				error: errMsg, 
-				loading: false 
+			set({
+				error: errMsg,
+				loading: false
 			});
 			toast.error(errMsg);
 		}

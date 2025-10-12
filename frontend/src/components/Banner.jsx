@@ -98,7 +98,7 @@ const Banner = () => {
 
   return (
     <div
-      className="w-full h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[400px] sm:min-h-[450px] md:min-h-[500px] max-h-[600px] sm:max-h-[650px] md:max-h-[700px] relative overflow-hidden group"
+      className="w-full h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[400px] sm:min-h-[450px] md:min-h-[500px] max-h-[600px] sm:max-h-[650px] md:max-h-[700px] relative overflow-hidden group bg-black"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -106,7 +106,7 @@ const Banner = () => {
         {bannerData.map((item, index) => (
           <div 
             key={index} 
-            className="relative h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[400px] sm:min-h-[450px] md:min-h-[500px] max-h-[600px] sm:max-h-[650px] md:max-h-[700px]"
+            className="relative h-[60vh] sm:h-[65vh] md:h-[70vh] min-h-[400px] sm:min-h-[450px] md:min-h-[500px] max-h-[600px] sm:max-h-[650px] md:max-h-[700px] bg-black"
           >
             <img
               src={item?.image || 'https://via.placeholder.com/1200x600?text=Banner+Image'}

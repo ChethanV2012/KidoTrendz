@@ -4,7 +4,7 @@ import { useProductStore } from "../stores/useProductStore";
 import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
 import toast from "react-hot-toast";
-import { Menu, X} from "lucide-react";
+import { Menu, X } from "lucide-react";
 //import { RefreshCw } from "lucide-react";
 import ProductCard from "./ProductCard";
 
@@ -66,8 +66,8 @@ const Shop = () => {
   const effectiveMinPrice = Math.max(minPrice, globalMin);
 
   useEffect(() => {
-    fetchShopProducts();
-  }, [fetchShopProducts]);
+    fetchShopProducts(searchTerm); // Pass searchTerm to backend
+  }, [fetchShopProducts, searchTerm]); // Re-fetch on search change
 
   useEffect(() => {
     if (storeProducts.length === 0 && !loading) return;
@@ -238,9 +238,8 @@ const Shop = () => {
 
           {/* Sidebar Filters */}
           <motion.aside
-            className={`lg:w-1/4 order-2 lg:order-1 space-y-4 lg:space-y-6 ${
-              showMobileFilters ? "block fixed inset-y-0 left-0 z-50 bg-gray-900 w-80" : "hidden"
-            } lg:block lg:relative lg:w-auto lg:h-auto overflow-y-auto lg:overflow-visible`}
+            className={`lg:w-1/4 order-2 lg:order-1 space-y-4 lg:space-y-6 ${showMobileFilters ? "block fixed inset-y-0 left-0 z-50 bg-gray-900 w-80" : "hidden"
+              } lg:block lg:relative lg:w-auto lg:h-auto overflow-y-auto lg:overflow-visible`}
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.2 }}

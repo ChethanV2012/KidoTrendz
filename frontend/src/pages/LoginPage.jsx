@@ -1,19 +1,24 @@
+// LoginPage.jsx
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Added useNavigate for redirect
 import { LogIn, Mail, Lock, ArrowRight, Loader } from "lucide-react";
 import { useUserStore } from "../stores/useUserStore";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate(); // For redirect after login
 
 	const { login, loading } = useUserStore();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log(email, password);
-		login(email, password);
+		// Removed console.log for production
+		await login(email, password);
+		if (!loading) {
+			navigate("/"); // Redirect to home after successful login
+		}
 	};
 
 	return (
@@ -24,7 +29,10 @@ const LoginPage = () => {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.8 }}
 			>
-				<h2 className='mt-6 text-center text-3xl font-extrabold text-emerald-400'>Create your account</h2>
+				<h2 className='mt-6 text-center text-3xl font-extrabold text-emerald-400'>Sign In</h2> {/* Fixed title */}
+				<p className='mt-2 text-center text-sm text-gray-400'>
+					Enter your credentials to access your account
+				</p>
 			</motion.div>
 
 			<motion.div
@@ -49,10 +57,9 @@ const LoginPage = () => {
 									required
 									value={email}
 									onChange={(e) => setEmail(e.target.value)}
-									className=' block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
-									rounded-md shadow-sm
-									 placeholder-gray-400 focus:outline-none focus:ring-emerald-500 
-									 focus:border-emerald-500 sm:text-sm'
+									className='block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
+									rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 
+									focus:border-emerald-500 sm:text-sm'
 									placeholder='you@example.com'
 								/>
 							</div>
@@ -72,7 +79,7 @@ const LoginPage = () => {
 									required
 									value={password}
 									onChange={(e) => setPassword(e.target.value)}
-									className=' block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
+									className='block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
 									rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm'
 									placeholder='••••••••'
 								/>
@@ -95,7 +102,7 @@ const LoginPage = () => {
 							) : (
 								<>
 									<LogIn className='mr-2 h-5 w-5' aria-hidden='true' />
-									Login
+									Sign In
 								</>
 							)}
 						</button>
