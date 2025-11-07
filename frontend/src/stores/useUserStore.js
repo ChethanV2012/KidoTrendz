@@ -20,7 +20,8 @@ export const useUserStore = create((set, get) => ({
 			const res = await axios.post("/auth/signup", { name, email, password });
 			const { user, token } = res.data;
 			localStorage.setItem("token", token); // Store token
-			set({ user, loading: false });
+			// Ensure new object reference for user to trigger re-renders on role changes
+			set({ user: { ...user }, loading: false });
 		} catch (error) {
 			set({ loading: false });
 			toast.error(error.response?.data?.message || "An error occurred");
@@ -34,7 +35,8 @@ export const useUserStore = create((set, get) => ({
 			const res = await axios.post("/auth/login", { email, password });
 			const { user, token } = res.data;
 			localStorage.setItem("token", token); // Store token
-			set({ user, loading: false });
+			// Ensure new object reference for user to trigger re-renders on role changes
+			set({ user: { ...user }, loading: false });
 		} catch (error) {
 			set({ loading: false });
 			toast.error(error.response?.data?.message || "An error occurred");
@@ -63,7 +65,8 @@ export const useUserStore = create((set, get) => ({
 
 		try {
 			const response = await axios.get("/auth/profile");
-			set({ user: response.data, checkingAuth: false });
+			// Ensure new object reference for user to trigger re-renders on role changes
+			set({ user: { ...response.data }, checkingAuth: false });
 		} catch (error) {
 			if (error.response?.status === 401) {
 				localStorage.removeItem("token");

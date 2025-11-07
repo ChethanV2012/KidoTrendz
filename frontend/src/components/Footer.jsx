@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
+import { Link } from "react-router-dom"; // Added for routing
 import paymentCard from '/src/assets/payment.png';
 
 const Button = ({ children, onClick, className }) => (
@@ -48,6 +49,10 @@ const Footer = () => {
 
   const firstHalf = categories.slice(0, 6);
   const secondHalf = categories.slice(6);
+
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
 
   return (
     <footer className="bg-white border-t border-gray-100">
@@ -188,15 +193,20 @@ const Footer = () => {
               />
             </div>
             <div className="flex gap-4 order-2 sm:order-3 justify-center sm:justify-end">
-              {['Privacy Policy', 'Terms of Service'].map((link) => (
-                <a
-                  key={link}
-                  href="#"
-                  className="text-gray-500 hover:text-gray-900 text-sm transition-colors duration-200"
-                >
-                  {link}
-                </a>
-              ))}
+              <Link
+                to="/privacy"
+                onClick={handleLinkClick}
+                className="text-gray-500 hover:text-gray-900 text-sm transition-colors duration-200"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="/terms"
+                onClick={handleLinkClick}
+                className="text-gray-500 hover:text-gray-900 text-sm transition-colors duration-200"
+              >
+                Terms of Service
+              </Link>
             </div>
           </div>
         </div>

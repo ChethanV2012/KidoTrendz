@@ -1,24 +1,35 @@
 // LoginPage.jsx
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom"; // Added useNavigate for redirect
+import { Link, useNavigate } from "react-router-dom";
 import { LogIn, Mail, Lock, ArrowRight, Loader } from "lucide-react";
 import { useUserStore } from "../stores/useUserStore";
 
 const LoginPage = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const navigate = useNavigate(); // For redirect after login
+	const navigate = useNavigate();
+	const { login, loading, user } = useUserStore(); // Destructure user for reactivity
 
-	const { login, loading } = useUserStore();
+	useEffect(() => {
+		// Auto-redirect on successful login (watches user change)
+		if (user && !loading) {
+			console.log('Login effect: Redirecting for role', user.role); // Debug
+			if (user.role === "admin") {
+				navigate("/secret-dashboard", { replace: true });
+			} else {
+				navigate("/", { replace: true });
+			}
+		}
+	}, [user, loading, navigate]);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// Removed console.log for production
+		if (!email || !password) return;
+
+		console.log('Login attempt:', { email }); // Debug
 		await login(email, password);
-		if (!loading) {
-			navigate("/"); // Redirect to home after successful login
-		}
+		// No explicit check/redirect here—useEffect handles it reactively
 	};
 
 	return (
@@ -29,7 +40,7 @@ const LoginPage = () => {
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.8 }}
 			>
-				<h2 className='mt-6 text-center text-3xl font-extrabold text-emerald-400'>Sign In</h2> {/* Fixed title */}
+				<h2 className='mt-6 text-center text-3xl font-extrabold text-emerald-400'>Sign In</h2>
 				<p className='mt-2 text-center text-sm text-gray-400'>
 					Enter your credentials to access your account
 				</p>

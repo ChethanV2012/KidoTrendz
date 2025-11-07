@@ -132,15 +132,15 @@ const Navbar = () => {
 							</Link>
 						)}
 
-						{/* Admin Dashboard */}
+						{/* Admin Dashboard Button - Prominent for admins (always visible, no toggle needed) */}
 						{isAdmin && (
 							<Link
-								className='bg-emerald-700 hover:bg-emerald-600 text-white px-3 py-1 rounded-md font-medium
-									transition duration-300 ease-in-out flex items-center mr-2'
-								to={"/secret-dashboard"}
+								to="/secret-dashboard"
+								className='bg-emerald-700 hover:bg-emerald-600 text-white px-4 py-2 rounded-md font-semibold 
+									transition duration-300 ease-in-out flex items-center shadow-md hover:shadow-lg transform hover:scale-105'
 							>
-								<Lock className='mr-1' size={18} />
-								<span className='hidden lg:inline'>Dashboard</span>
+								<Lock className='mr-2' size={18} />
+								Dashboard
 							</Link>
 						)}
 

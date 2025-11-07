@@ -18,12 +18,12 @@ export const createCheckoutSession = async (req, res) => {
 
 			return {
 				price_data: {
-					currency: "usd",
+					currency: "inr",
 					product_data: {
 						name: product.name,
 						images: [product.image],
 					},
-					unit_amount: amount,
+					unit_amount: Math.round(product.price * 100),
 				},
 				quantity: product.quantity || 1,
 			};

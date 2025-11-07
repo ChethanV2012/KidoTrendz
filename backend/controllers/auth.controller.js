@@ -49,11 +49,11 @@ export const signup = async (req, res) => {
 
 		setCookies(res, accessToken, refreshToken);
 
+		// Return full user object (including role) wrapped, plus token for frontend localStorage
+		const { password: _, ...userWithoutPassword } = user.toObject();
 		res.status(201).json({
-			_id: user._id,
-			name: user.name,
-			email: user.email,
-			role: user.role,
+			user: userWithoutPassword, // Full user with role
+			token: accessToken,
 		});
 	} catch (error) {
 		console.log("Error in signup controller", error.message);
@@ -64,18 +64,18 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
 	try {
 		const { email, password } = req.body;
-		const user = await User.findOne({ email });
+		const user = await User.findOne({ email }).select('+password'); // Include password for comparison
 
 		if (user && (await user.comparePassword(password))) {
 			const { accessToken, refreshToken } = generateTokens(user._id);
 			await storeRefreshToken(user._id, refreshToken);
 			setCookies(res, accessToken, refreshToken);
 
+			// Return full user object (including role) wrapped, plus token for frontend localStorage
+			const { password: _, ...userWithoutPassword } = user.toObject();
 			res.json({
-				_id: user._id,
-				name: user.name,
-				email: user.email,
-				role: user.role,
+				user: userWithoutPassword, // Full user with role
+				token: accessToken,
 			});
 		} else {
 			res.status(400).json({ message: "Invalid email or password" });
@@ -128,7 +128,8 @@ export const refreshToken = async (req, res) => {
 			maxAge: 15 * 60 * 1000,
 		});
 
-		res.json({ message: "Token refreshed successfully" });
+		// Return new token in body for frontend to update localStorage
+		res.json({ token: accessToken });
 	} catch (error) {
 		console.log("Error in refreshToken controller", error.message);
 		res.status(500).json({ message: "Server error", error: error.message });
@@ -137,7 +138,9 @@ export const refreshToken = async (req, res) => {
 
 export const getProfile = async (req, res) => {
 	try {
-		res.json(req.user);
+		// Ensure req.user is full user (fetched in middleware) and strip password
+		const { password: _, ...userWithoutPassword } = req.user.toObject();
+		res.json(userWithoutPassword); // Full user with role
 	} catch (error) {
 		res.status(500).json({ message: "Server error", error: error.message });
 	}

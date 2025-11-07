@@ -1,3 +1,4 @@
+// Updated App.jsx (add these imports and routes)
 import { Navigate, Route, Routes } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
@@ -9,6 +10,8 @@ import ProductPage from "./pages/ProductPage";
 import AboutPage from "./pages/AboutPage";
 import ContactPage from "./pages/ContactPage";
 import Profile from "./pages/Profile";
+import PrivacyPolicy from "./pages/PrivacyPolicy"; // New
+import TermsOfService from "./pages/TermsOfService"; // New
 
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -68,9 +71,11 @@ function App() {
 						element={user ? <PurchaseSuccessPage /> : <Navigate to='/login' />}
 					/>
 					<Route path='/purchase-cancel' element={user ? <PurchaseCancelPage /> : <Navigate to='/login' />} />
-					{/* Updated: Single route using ProductPage (with built-in fetching); removed duplicate */}
 					<Route path="/product/:id" element={<ProductPage />} />
 					<Route path="/products/:id" element={<ProductPage />} />
+					{/* New Routes */}
+					<Route path="/privacy" element={<PrivacyPolicy />} />
+					<Route path="/terms" element={<TermsOfService />} />
 				</Routes>
 				<Footer />
 			</div>
