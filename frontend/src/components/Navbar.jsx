@@ -158,20 +158,7 @@ const Navbar = () => {
 									<div className="absolute right-0 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-700">
 										{!isAdmin && (
 											<>
-												<Link
-													to="/wishlist"
-													className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
-													onClick={() => setIsProfileDropdownOpen(false)}
-												>
-													Wishlist
-												</Link>
-												<Link
-													to="/my-orders"
-													className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
-													onClick={() => setIsProfileDropdownOpen(false)}
-												>
-													Manage My Orders
-												</Link>
+	
 											</>
 										)}
 										<Link
@@ -255,16 +242,7 @@ const Navbar = () => {
 								</button>
 								{isProfileDropdownOpen && (
 									<div className="absolute top-full right-4 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 z-50 border border-gray-700">
-										<Link
-											to="/wishlist"
-											className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
-											onClick={() => {
-												setIsProfileDropdownOpen(false);
-												setIsMobileMenuOpen(false);
-											}}
-										>
-											Wishlist
-										</Link>
+										
 										<Link
 											to="/my-orders"
 											className="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700 hover:text-emerald-400 transition duration-200"
