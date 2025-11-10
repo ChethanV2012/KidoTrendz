@@ -30,7 +30,7 @@ const PrivacyPolicy = () => {
             <section>
               <h2 className="text-xl sm:text-2xl font-semibold text-emerald-500 mb-2 sm:mb-4">1. Introduction</h2>
               <p className="text-sm sm:text-base">
-                Welcome to KidoTrendz, We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website [yourdomain.com], use our services, or interact with us. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.
+                Welcome to KidoTrendz, We are committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website, use our services, or interact with us. Please read this privacy policy carefully. If you do not agree with the terms of this privacy policy, please do not access the site.
               </p>
             </section>
 

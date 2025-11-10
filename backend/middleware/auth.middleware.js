@@ -1,9 +1,18 @@
+// middleware/auth.middleware.js (updated to handle both Bearer token and cookies)
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 
 export const protectRoute = async (req, res, next) => {
 	try {
-		const accessToken = req.cookies.accessToken;
+		let accessToken;
+
+		// Check for Bearer token in Authorization header first (for API calls)
+		if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+			accessToken = req.headers.authorization.split(' ')[1];
+		} else {
+			// Fallback to cookie
+			accessToken = req.cookies.accessToken;
+		}
 
 		if (!accessToken) {
 			return res.status(401).json({ message: "Unauthorized - No access token provided" });

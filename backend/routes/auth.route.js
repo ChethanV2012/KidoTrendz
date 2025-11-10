@@ -1,13 +1,15 @@
-import express from "express";
-import { login, logout, signup, refreshToken, getProfile } from "../controllers/auth.controller.js";
-import { protectRoute } from "../middleware/auth.middleware.js";
+// routes/auth.route.js (updated with profile update route)
+import express from 'express';
+import { signup, login, logout, refreshToken, getProfile, updateProfile } from '../controllers/authController.js';
+import { protectRoute } from '../middleware/auth.middleware.js';
 
 const router = express.Router();
 
-router.post("/signup", signup);
-router.post("/login", login);
-router.post("/logout", logout);
-router.post("/refresh-token", refreshToken);
-router.get("/profile", protectRoute, getProfile);
+router.post('/register', signup);
+router.post('/login', login);
+router.post('/logout', protectRoute, logout);
+router.post('/refresh', refreshToken);
+router.get('/profile', protectRoute, getProfile);
+router.put('/profile', protectRoute, updateProfile); // Added for profile update
 
 export default router;

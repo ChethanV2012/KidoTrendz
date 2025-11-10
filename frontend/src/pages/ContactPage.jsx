@@ -10,9 +10,9 @@ const ContactPage = () => {
     message: ''
   });
   const [contactInfo] = useState({
-    phone: '+1 (234) 567-890',
-    email: 'hello@kidotrendz.com',
-    address: '123 Fashion Street, Mumbai, Maharashtra 400001, India'
+    phone: '+080 567346782',
+    email: 'support@kidotrendz.com',
+    address: '123 Fashion Street, Rajajinagar, Bangalore 560010, India'
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState('');

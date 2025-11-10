@@ -80,17 +80,12 @@ const TermsOfService = () => {
             </section>
 
             <section>
-              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-500 mb-2 sm:mb-4">9. Governing Law</h2>
-              <p className="text-sm sm:text-base">These Terms governed by [Your Country/State] laws. Disputes resolved in [Your Jurisdiction] courts.</p>
-            </section>
-
-            <section>
-              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-500 mb-2 sm:mb-4">10. Changes to Terms</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-500 mb-2 sm:mb-4">9. Changes to Terms</h2>
               <p className="text-sm sm:text-base">We may update Terms. Continued use constitutes acceptance.</p>
             </section>
 
             <section>
-              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-500 mb-2 sm:mb-4">11. Contact Us</h2>
+              <h2 className="text-xl sm:text-2xl font-semibold text-emerald-500 mb-2 sm:mb-4">10. Contact Us</h2>
               <p className="text-sm sm:text-base">
                 Questions? Email <a href="mailto:support@kidotrendz.com" className="text-emerald-600 hover:underline">support@kidotrendz.com</a>.
               </p>
